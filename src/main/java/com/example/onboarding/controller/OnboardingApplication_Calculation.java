@@ -1,7 +1,6 @@
 package com.example.onboarding.controller;
 
-import com.example.onboarding.model.LaborCalculation;
-import com.example.onboarding.model.LaborParamsCalculation;
+import com.example.onboarding.domain.MaterialCalculationRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +16,13 @@ public class OnboardingApplication_Calculation {
         SpringApplication.run(OnboardingApplication_Calculation.class, args);
 
     }
+
+    // Onboarding_Calculation is Redundant, should test the Mater
     @PostMapping(value = "/Onboarding_Calculation")
     //creates postMapping operation, expecting a plain text
-    public float Onboarding_Calculation(@RequestBody LaborParamsCalculation params)
+    public float Onboarding_Calculation(@RequestBody MaterialCalculationRequest params)
     {
-        LaborCalculation myCalc = new LaborCalculation(params.getLength(), params.getWidth(), params.getSqftPerGallon());
+        MaterialCalculationRequest myCalc = new MaterialCalculationRequest(params.getLength(), params.getWidth(), params.getSqftPerGallon());
         return myCalc.myCalcuation();
 
     }

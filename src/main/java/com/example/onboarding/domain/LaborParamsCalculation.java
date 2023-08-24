@@ -1,4 +1,4 @@
-package com.example.onboarding.model;
+package com.example.onboarding.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 
 @Component
-public class LaborParams {
+public class LaborParamsCalculation {
     private float length;
     private float width;
-    private float pricePerUnit;
+    private float sqftPerGallon;
 }

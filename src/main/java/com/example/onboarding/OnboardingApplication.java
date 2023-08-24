@@ -1,7 +1,7 @@
 package com.example.onboarding;
 
-import com.example.onboarding.model.LaborPrice;
-import com.example.onboarding.model.LaborParams;
+import com.example.onboarding.domain.LaborPrice;
+import com.example.onboarding.domain.MaterialCalculationRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +19,7 @@ public class OnboardingApplication {
 	}
 	@PostMapping(value = "/Onboarding")
 	//creates postMapping operation, expecting a plain text
-	public LaborPrice Onboarding(@RequestBody LaborParams params)
+	public LaborPrice Onboarding(@RequestBody MaterialCalculationRequest params)
 	{
 		System.out.println("hi fred");
 		System.out.println(params.getLength());
