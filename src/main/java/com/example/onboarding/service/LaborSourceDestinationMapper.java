@@ -1,5 +1,7 @@
 package com.example.onboarding.service;
 
+import com.example.onboarding.domain.LaborDestination;
+import com.example.onboarding.domain.LaborSource;
 import com.example.onboarding.domain.MaterialCalculationRequest;
 import org.mapstruct.Mapper;
 
@@ -7,6 +9,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 
 public interface LaborSourceDestinationMapper {
-    MaterialCalculationRequest.LaborDestination sourceToDestination(MaterialCalculationRequest.LaborSource mySource);
-    MaterialCalculationRequest.LaborSource destinationToSource(MaterialCalculationRequest.LaborDestination myDestination);
+    LaborDestination sourceToDestination(LaborSource mySource);
+    LaborSource destinationToSource(LaborDestination myDestination);
 }
