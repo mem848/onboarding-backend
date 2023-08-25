@@ -13,7 +13,7 @@ public class MaterialCalculationRequest {
     private float length;
     private float width;
     private float sqftPerGallon;
-    public float myCalcuation() {
+    public float gallonsRequired() {
         return this.getLength()*this.getWidth()/this.getSqftPerGallon();
     }
 }
