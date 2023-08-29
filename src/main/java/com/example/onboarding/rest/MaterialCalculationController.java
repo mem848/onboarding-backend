@@ -1,6 +1,8 @@
 package com.example.onboarding.rest;
 
 import com.example.onboarding.domain.MaterialCalculationRequest;
+import com.example.onboarding.domain.MaterialCalculationResponse;
+import com.example.onboarding.service.MaterialCalculationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 //takes in 3 parameters, returns gallons required
 public class MaterialCalculationController {
     @PostMapping(value = "/MaterialCalculationController")
-    public float Onboarding(@RequestBody MaterialCalculationRequest params)
+    public MaterialCalculationResponse Onboarding(@RequestBody MaterialCalculationRequest params)
     {
-        MaterialCalculationRequest myCalc = new MaterialCalculationRequest(params.getLength(), params.getWidth(), params.getSqftPerGallon());
-        return myCalc.gallonsRequired();
+        MaterialCalculationService service = new MaterialCalculationService();
+        return service.materialCalculationService(params);
     }
 
 }

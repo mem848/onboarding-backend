@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LaborCalculationRequest {
-    private float length;
-    private float width;
-    private float pricePerSqft;
-
+public class MaterialCalculationResponse {
+    private float gallons_required;
 }
