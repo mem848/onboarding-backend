@@ -1,4 +1,4 @@
-package com.example.onboarding.domain;
+package com.example.onboarding.rest.resources.v1;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,4 @@ public class MaterialCalculationRequest {
     private float length;
     private float width;
     private float sqftPerGallon;
-    public float gallonsRequired() {
-        return this.getLength()*this.getWidth()/this.getSqftPerGallon();
-    }
 }

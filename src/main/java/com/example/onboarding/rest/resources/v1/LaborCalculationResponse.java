@@ -1,4 +1,4 @@
-package com.example.onboarding.domain;
+package com.example.onboarding.rest.resources.v1;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,12 @@
 package com.example.onboarding.rest;
 
-import com.example.onboarding.domain.MaterialCalculationRequest;
-import com.example.onboarding.domain.MaterialCalculationResponse;
+import com.example.onboarding.domain.MaterialCalculated;
+import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
+import com.example.onboarding.rest.resources.mappers.MaterialCalculationMapper;
+import com.example.onboarding.rest.resources.v1.MaterialCalculationRequest;
+import com.example.onboarding.rest.resources.v1.MaterialCalculationResponse;
 import com.example.onboarding.service.MaterialCalculationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,11 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 //        }
 //takes in 3 parameters, returns gallons required
 public class MaterialCalculationController {
+    @Autowired
+    MaterialCalculationService service;
+    @Autowired
+    MaterialCalculationMapper mapper;
     @PostMapping(value = "/MaterialCalculationController")
-    public MaterialCalculationResponse Onboarding(@RequestBody MaterialCalculationRequest params)
+    public MaterialCalculationResponse onboarding(@RequestBody MaterialCalculationRequest params)
     {
-        MaterialCalculationService service = new MaterialCalculationService();
-        return service.materialCalculationService(params);
+        //request to MaterialCalculated
+        MaterialCalculated calculated = mapper.requestToCalculated(params);
+        //service call on calculated object
+        service.materialCalculationService(calculated);
+        //map to response and return
+        return mapper.calculatedToResponse(calculated);
     }
 
 }

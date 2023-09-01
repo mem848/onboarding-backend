@@ -1,14 +1,27 @@
 package com.example.onboarding.service;
 
-import com.example.onboarding.domain.LaborCalculationRequest;
-import com.example.onboarding.domain.LaborCalculationResponse;
+import com.example.onboarding.domain.LaborCalculated;
+import com.example.onboarding.rest.resources.v1.LaborCalculationRequest;
+import com.example.onboarding.rest.resources.v1.LaborCalculationResponse;
+import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Service
 public class LaborCalculationService {
-    public LaborCalculationResponse laborCalculationService (LaborCalculationRequest request)
+    @Autowired
+    LaborCalculationMapper mapper;
+    public void laborCalculationService (LaborCalculated calculated)
     {
-        float calculation = request.getLength()* request.getWidth()* request.getPricePerSqft();
-        System.out.println("hi, here is string of request: "+request.toString());
-        LaborCalculationResponse response = new LaborCalculationResponse(123456789, calculation);
-        return response;
+        calculated.setPrice(calculated.getLength()* calculated.getWidth()* calculated.getPricePerSqft());
+        calculated.setId(1234567890);
     }
+
 }

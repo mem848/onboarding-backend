@@ -1,8 +1,7 @@
-package com.example.onboarding.service;
+package com.example.onboarding.rest.resources.mappers;
 
 import com.example.onboarding.domain.LaborDestination;
 import com.example.onboarding.domain.LaborSource;
-import com.example.onboarding.domain.MaterialCalculationRequest;
 import org.mapstruct.Mapper;
 
 //https://www.baeldung.com/mapstruct

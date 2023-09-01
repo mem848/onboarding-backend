@@ -1,12 +1,16 @@
 package com.example.onboarding.rest;
 
-import com.example.onboarding.domain.LaborCalculationRequest;
-import com.example.onboarding.domain.LaborCalculationResponse;
+import com.example.onboarding.domain.LaborCalculated;
+import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
+import com.example.onboarding.rest.resources.v1.LaborCalculationRequest;
+import com.example.onboarding.rest.resources.v1.LaborCalculationResponse;
 import com.example.onboarding.service.LaborCalculationService;
+import org.mapstruct.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.mapstruct.Mapper;
 @RestController
 //{
 //        "length": 14,
@@ -17,11 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 //returns an id and price
 public class LaborCalculationController {
 
-    @PostMapping(value = "/LaborCalculationController")
-    public LaborCalculationResponse Onboarding(@RequestBody LaborCalculationRequest params)
-    {
-        LaborCalculationService service = new LaborCalculationService();
-        return service.laborCalculationService(params);
 
+    @Autowired
+    LaborCalculationMapper mapper;
+    @Autowired
+    LaborCalculationService service;
+    @PostMapping(value = "/LaborCalculationController")
+    public LaborCalculationResponse onboarding(@RequestBody LaborCalculationRequest params)
+    {
+        //map from request to laborCalculated here
+        LaborCalculated calculated = mapper.requestToCalculated(params);
+        //do math/set price for labor based on params
+        service.laborCalculationService(calculated);
+        //controller handles mapping back to response
+        return mapper.calculatedToResponse(calculated);
     }
 }

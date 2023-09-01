@@ -1,15 +1,13 @@
 package com.example.onboarding.domain;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LaborCalculationRequest {
+public class LaborCalculated {
     private float length;
     private float width;
     private float pricePerSqft;
-
+    private int id;
+    private float price;
 }

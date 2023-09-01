@@ -2,8 +2,7 @@ package com.example.onboarding;
 
 import com.example.onboarding.domain.LaborDestination;
 import com.example.onboarding.domain.LaborSource;
-import com.example.onboarding.domain.MaterialCalculationRequest;
-import com.example.onboarding.service.LaborSourceDestinationMapper;
+import com.example.onboarding.rest.resources.mappers.LaborSourceDestinationMapper;
 import org.junit.Test;
 import org.mapstruct.factory.Mappers;
 
