@@ -1,9 +1,9 @@
 package com.example.onboarding.service;
 
 import com.example.onboarding.domain.LaborTableCalculated;
-import lombok.Data;
+import org.springframework.stereotype.Service;
 
-@Data
+@Service
 public class LaborTableService {
     //this class should take LaborTableCalculated object and calculate price for labor
     public void laborTableCalculated(LaborTableCalculated table)
