@@ -15,6 +15,6 @@ public class MaterialTableResponse {
     private Date time_stamp;
     private double length;
     private double width;
-    private double sqft_per_gallon;
-    private double cost;
+    private double sqftPerGallon;
+    private double gallons_required;
 }

@@ -1,16 +1,21 @@
 package com.example.onboarding.domain.entity;
 
 import com.google.gson.annotations.SerializedName;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="Material")
 public class MaterialTable {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SerializedName(value = "MaterialID", alternate = "materialId")
     @Column(name="Id")
@@ -27,8 +32,8 @@ public class MaterialTable {
     public double width;
 
     @Column(name="sqft_per_gallon")
-    private double sqft_per_gallon;
+    private double sqftPerGallon;
 
-    @Column(name="labor_cost")
-    public double cost;
+    @Column(name="gallons-required")
+    public double gallons_required;
 }

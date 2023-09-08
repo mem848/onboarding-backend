@@ -1,8 +1,10 @@
 package com.example.onboarding;
 
-import com.example.onboarding.domain.MaterialCalculated;
+import com.example.onboarding.domain.part1pojos.Labor;
+import com.example.onboarding.domain.part1pojos.LaborCalculated;
+import com.example.onboarding.domain.part1pojos.Material;
+import com.example.onboarding.domain.part1pojos.MaterialCalculated;
 import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
-import com.example.onboarding.rest.resources.mappers.LaborSourceDestinationMapper;
 import com.example.onboarding.rest.resources.mappers.MaterialCalculationMapper;
 import com.example.onboarding.rest.resources.v1.LaborCalculationRequest;
 import com.example.onboarding.rest.resources.v1.LaborCalculationResponse;
@@ -10,26 +12,23 @@ import com.example.onboarding.rest.resources.v1.MaterialCalculationRequest;
 import com.example.onboarding.rest.resources.v1.MaterialCalculationResponse;
 
 import com.example.onboarding.rest.LaborCalculationController;
-import com.example.onboarding.rest.MaterialCalculationController;
 import com.example.onboarding.service.LaborCalculationService;
 import com.example.onboarding.service.MaterialCalculationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 //import org.junit.Test;
 import org.junit.jupiter.api.Test; //trying this import rather than org.junit.Test
 import org.junit.jupiter.api.BeforeEach;
-import org.mapstruct.factory.Mappers;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.assertArg;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,75 +42,82 @@ public class CalculationTest {
     //use @injectedMocks for service methods
     @Autowired
     private MockMvc mvc;
-
-    @Autowired
-    private MaterialCalculationMapper mockMaterialMapper;
     @Mock
     private LaborCalculationRequest mockLaborRequest;
     @Mock
+    private LaborCalculated mockLaborCalculated;
+    @Mock
+    private Labor mockLabor;
+    @Mock
     private LaborCalculationResponse mockLaborResponse;
 
-    @Mock
+    @MockBean
+    private LaborCalculationMapper mockLaborMapper;
+    @MockBean
     private LaborCalculationService mockLaborService;
+
 
     @Mock
     private MaterialCalculationRequest mockMaterialRequest;
-    private MaterialCalculationResponse materialResponse;
+    @Mock
+    private MaterialCalculated mockMaterialCalculated;
+    @Mock
+    private Material mockMaterial;
+    @Mock
+    private MaterialCalculationResponse mockMaterialResponse;
 
-    private MaterialCalculationService materialService;
+    @MockBean
+    private MaterialCalculationMapper mockMaterialMapper;
+    @MockBean
+    private MaterialCalculationService mockMaterialService;
 
     private ObjectMapper objectMapper;
     @MockBean
     private LaborCalculationController mockController;
+
+    public CalculationTest() {
+    }
     //https://stackoverflow.com/questions/51346781/how-to-test-post-method-in-spring-boot-using-mockito-and-junit
 
     @BeforeEach //initialize all variables before test
     void setUp()
     {
         this.objectMapper = new ObjectMapper();
-        this.materialService = new MaterialCalculationService();
+        //this.mockMaterialService = new MaterialCalculationService();
 
     }
+
     @Test
     public void laborControllerTest () throws Exception
     {//test services, controllers, maybe mappers
-        System.out.println("hello world");
-        //mvc performs controller
-        this.mvc.perform(post("/LaborCalculationController")
+
+        given(mockLaborMapper.requestToCalculated(mockLaborRequest)).willReturn(mockLaborCalculated); //request to calculated
+        given(mockLaborService.setPriceService(mockLaborCalculated)).willReturn(mockLabor); //calc to labor
+        given(mockLaborMapper.laborToResponse(mockLabor)).willReturn(mockLaborResponse); //labor to response
+        //testing mapping and service
+
+        this.mvc.perform(post("/Labor/Calculation")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(mockLaborRequest)))
                 .andExpect(status().isOk());
+        //these few lines test that controller works
 
-        LaborCalculationRequest testRequest = new LaborCalculationRequest(14F, 12F, 2.5F);
-        LaborCalculationResponse testResponse = new LaborCalculationResponse(1234567890, 420);
+        //check line 112 in ProfileControllerTest
+        //https://github.com/sherwin-williams-co/TAG-Profile-Service/blob/develop/service/src/test/java/com/sw/service/rest/ProfileControllerTest.java#L112
         //https://stackoverflow.com/questions/9186604/mockito-exception-when-requires-an-argument-which-has-to-be-a-method-call-on
-        //testing results of controller
-        given(mockController.onboarding(testRequest)).willReturn(testResponse);
     }
 
     @Test
     public void materialControllerTest() throws Exception
     {
-        System.out.println("Howdy Partner");
-        //given(mockMaterialService.materialCalculationService(mockMaterialRequest)).willReturn(mockMaterialResponse);
-        //mvc performs controller
-        this.mvc.perform(post("/MaterialCalculationController")
+        given(mockMaterialMapper.requestToCalculated(mockMaterialRequest)).willReturn(mockMaterialCalculated); //request to calculated
+        given(mockMaterialService.setPriceService(mockMaterialCalculated)).willReturn(mockMaterial); //calc to labor
+        given(mockMaterialMapper.materialToResponse(mockMaterial)).willReturn(mockMaterialResponse); //labor to response
+
+        this.mvc.perform(post("/Material/Calculation")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(mockMaterialRequest)))
                 .andExpect(status().isOk());
 
-        MaterialCalculationRequest testRequest = new MaterialCalculationRequest(14, 12, 300);
-        MaterialCalculated testCalculated = new MaterialCalculated(14, 12, 300, 0);
-        MaterialCalculationResponse testResponse = new MaterialCalculationResponse(0.56F);
-
-        MaterialCalculated calculated = this.mockMaterialMapper.requestToCalculated(testRequest);
-        System.out.println(calculated+": "+testCalculated+" ");
-
-        this.materialService.materialCalculationService(calculated);
-        testCalculated.setGallons_required(0.56F);
-        System.out.println(calculated.getGallons_required()+": "+testCalculated.getGallons_required());
-
-        this.materialResponse = this.mockMaterialMapper.calculatedToResponse(calculated);
-        System.out.println(materialResponse+": "+testResponse);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.onboarding.domain;
+package com.example.onboarding.domain.part2pojos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class MaterialTableCalculated {
     private double length;
     private double width;
-    private double sqft_per_gallon;
-    private double cost;
+    private double sqftPerGallon;
+    private double gallons_required;
 }

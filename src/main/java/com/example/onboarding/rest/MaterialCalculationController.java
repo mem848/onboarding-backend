@@ -1,7 +1,7 @@
 package com.example.onboarding.rest;
 
-import com.example.onboarding.domain.MaterialCalculated;
-import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
+import com.example.onboarding.domain.part1pojos.Material;
+import com.example.onboarding.domain.part1pojos.MaterialCalculated;
 import com.example.onboarding.rest.resources.mappers.MaterialCalculationMapper;
 import com.example.onboarding.rest.resources.v1.MaterialCalculationRequest;
 import com.example.onboarding.rest.resources.v1.MaterialCalculationResponse;
@@ -23,15 +23,15 @@ public class MaterialCalculationController {
     MaterialCalculationService service;
     @Autowired
     MaterialCalculationMapper mapper;
-    @PostMapping(value = "/MaterialCalculationController")
-    public MaterialCalculationResponse onboarding(@RequestBody MaterialCalculationRequest params)
+    @PostMapping(value = "/Material/Calculation")
+    public MaterialCalculationResponse materialCalculationController(@RequestBody MaterialCalculationRequest params)
     {
         //request to MaterialCalculated
         MaterialCalculated calculated = mapper.requestToCalculated(params);
         //service call on calculated object
-        service.materialCalculationService(calculated);
+        Material material = service.setPriceService(calculated);
         //map to response and return
-        return mapper.calculatedToResponse(calculated);
+        return mapper.materialToResponse(material);
     }
 
 }

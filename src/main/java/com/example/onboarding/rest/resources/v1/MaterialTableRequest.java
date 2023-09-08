@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class MaterialTableRequest {
     private double length;
     private double width;
-    private double sqft_per_gallon;
+    private double sqftPerGallon;
 }

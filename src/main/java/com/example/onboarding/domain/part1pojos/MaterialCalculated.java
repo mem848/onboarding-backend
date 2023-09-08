@@ -1,4 +1,4 @@
-package com.example.onboarding.domain;
+package com.example.onboarding.domain.part1pojos;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.onboarding.rest;
 
-import com.example.onboarding.domain.LaborTableCalculated;
+import com.example.onboarding.domain.part2pojos.LaborTableCalculated;
 import com.example.onboarding.domain.repository.ILaborRepository;
 import com.example.onboarding.domain.entity.LaborTable;
 import com.example.onboarding.rest.resources.mappers.LaborTableMapper;
@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/labor")
 //@Component
 public class LaborTableController {
     @Autowired
     private final ILaborRepository laborRepository;
     @Autowired
     private LaborTableMapper mapper;
+    @Autowired
+    private LaborTableService service;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/{id}")
@@ -39,12 +42,11 @@ public class LaborTableController {
     {
         //map from request to calculated
         LaborTableCalculated calculated = mapper.requestToCalculated(request);
-        //do service on calculated object
-        LaborTableService service = new LaborTableService();
-        service.laborTableCalculated(calculated);
+        //do service on calculated object (this function should return an object)
+        service.setCost(calculated);
         //map from calculated to LaborTable (this is a table)
         LaborTable table = mapper.calculatedToTable(calculated);
-        //save table
+        //save table, (move this to service)
         laborRepository.save(table);
         //take table and make response
         LaborTableResponse response = mapper.tableToResponse(table);

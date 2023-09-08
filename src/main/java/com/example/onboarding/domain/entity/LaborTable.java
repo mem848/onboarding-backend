@@ -16,7 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @Entity
 @Table(name="labor")
-public class LaborTable {
+public class LaborTable { //this is just one labor/row of table
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @SerializedName(value = "LaborID", alternate = "laborId")
@@ -34,7 +34,7 @@ public class LaborTable {
     public double width;
 
     @Column(name="price_per_sqft")
-    private double price_per_sqft;
+    private double pricePerSqft;
 
     @Column(name="labor_cost")
     public double cost;

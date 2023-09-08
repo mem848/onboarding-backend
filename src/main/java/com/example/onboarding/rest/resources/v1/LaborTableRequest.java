@@ -11,10 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LaborTableRequest {
-    //private double id;
-    //private Date time_stamp;
     private double length;
     private double width;
-    private double price_per_sqft;
-    //private double cost;
+    private double pricePerSqft;
 }

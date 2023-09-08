@@ -1,6 +1,6 @@
 package com.example.onboarding.rest;
 
-import com.example.onboarding.domain.MaterialTableCalculated;
+import com.example.onboarding.domain.part2pojos.MaterialTableCalculated;
 import com.example.onboarding.domain.entity.MaterialTable;
 import com.example.onboarding.domain.repository.IMaterialRepository;
 import com.example.onboarding.rest.resources.mappers.MaterialTableMapper;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+@RequestMapping("/material")
 @RestController
 @RequiredArgsConstructor
 public class MaterialTableController {
@@ -29,13 +29,13 @@ public class MaterialTableController {
     }
 
     @PostMapping("")
-    public MaterialTableResponse insert(@RequestBody MaterialTableRequest request)
+    public MaterialTableResponse insertMaterial(@RequestBody MaterialTableRequest request)
     {
         //request to calculated
         MaterialTableCalculated calculated = mapper.requestToCalculated(request);
         //set cost via service
         MaterialTableService service = new MaterialTableService();
-        service.setCost(calculated);
+        service.setGallonsRequired(calculated);
         //calculated to table
         MaterialTable table = mapper.calculatedToTable(calculated);
         materialRepository.save(table);
