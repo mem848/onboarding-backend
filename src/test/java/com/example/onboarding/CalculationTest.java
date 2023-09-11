@@ -1,9 +1,9 @@
 package com.example.onboarding;
 
-import com.example.onboarding.domain.part1pojos.Labor;
-import com.example.onboarding.domain.part1pojos.LaborCalculated;
-import com.example.onboarding.domain.part1pojos.Material;
-import com.example.onboarding.domain.part1pojos.MaterialCalculated;
+import com.example.onboarding.domain.Labor;
+import com.example.onboarding.domain.LaborCalculated;
+import com.example.onboarding.domain.Material;
+import com.example.onboarding.domain.MaterialCalculated;
 import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
 import com.example.onboarding.rest.resources.mappers.MaterialCalculationMapper;
 import com.example.onboarding.rest.resources.v1.LaborCalculationRequest;

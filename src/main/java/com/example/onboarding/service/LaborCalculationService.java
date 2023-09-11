@@ -1,7 +1,7 @@
 package com.example.onboarding.service;
 
-import com.example.onboarding.domain.part1pojos.Labor;
-import com.example.onboarding.domain.part1pojos.LaborCalculated;
+import com.example.onboarding.domain.Labor;
+import com.example.onboarding.domain.LaborCalculated;
 import com.example.onboarding.rest.resources.mappers.LaborCalculationMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;

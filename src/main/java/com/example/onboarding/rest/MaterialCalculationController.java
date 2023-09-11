@@ -1,7 +1,7 @@
 package com.example.onboarding.rest;
 
-import com.example.onboarding.domain.part1pojos.Material;
-import com.example.onboarding.domain.part1pojos.MaterialCalculated;
+import com.example.onboarding.domain.Material;
+import com.example.onboarding.domain.MaterialCalculated;
 import com.example.onboarding.rest.resources.mappers.MaterialCalculationMapper;
 import com.example.onboarding.rest.resources.v1.MaterialCalculationRequest;
 import com.example.onboarding.rest.resources.v1.MaterialCalculationResponse;
